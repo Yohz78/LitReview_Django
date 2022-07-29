@@ -38,4 +38,6 @@ urlpatterns = [
         name="password_change_done",
     ),
     path("signup", authentification.views.signup_page, name="signup"),
+    path("reviews/create-ticket", reviews.views.ticket_upload, name="create-ticket"),
+    path("reviews/<int:ticket_id>/edit", reviews.views.edit_ticket, name="edit-ticket"),
 ]

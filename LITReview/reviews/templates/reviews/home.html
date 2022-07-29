@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Vous êtes connecté !</p>
+    <p>Voici votre flux</p>
+    {% for ticket in tickets %}
+    <h3>{{ ticket.title }}</h3>
+    {{ ticket.description }}
+    <p><a href="{% url 'edit-ticket' ticket.id %}">Modifier le ticket</a></p>
+    {% endfor %}
 {% endblock content %}
