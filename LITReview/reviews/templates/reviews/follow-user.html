@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Suivre un autre utilisateur</h2>
+    <form method="post">
+        {{ userfollowsform }}
+        {% csrf_token %}
+        <button type="submit" >Publier</button>
+    </form>
+{% endblock content %}

@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Voici votre flux</p>
+    <h1>Voici votre flux</h1>
     {% for ticket in tickets %}
-    <h3>{{ ticket.title }}</h3>
-    {{ ticket.description }}
-    <p><a href="{% url 'edit-ticket' ticket.id %}">Modifier le ticket</a></p>
+    <div class="item">
+        <p>{{ ticket.user }} a demandé une critique</p>
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+        <p><a href="{% url 'edit-ticket' ticket.id %}">Modifier le ticket</a> {{ ticket.time_created}}
+        <a href="{% url 'create-review' ticket.id %}">Créer une critique</a></p>
+    </div>
+    {% endfor %}
+    {% for review in reviews%}
+    <div class="item">
+        <p>{{ review.user }} a publié une critique</p>
+        <h3>{{review.headline}} -- {{ review.rating }}*</h3>
+        <p>{{review.body}}</p>
+        <div class="item">
+            <p>Ticket -- {{ review.ticket.user }}</p>
+            <h3>{{ review.ticket.title }}</h3>
+            <p>{{ review.ticket.description }}</p>
+            <p>{{review.ticket.time_created}}</p>
+        </div>
+    </div>
     {% endfor %}
 {% endblock content %}

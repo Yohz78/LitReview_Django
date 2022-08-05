@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post" class="maclasse">
+        <h2>Créer une critique</h2>
+        <ul class="reviewform">
+            <li id="rating" class="review">Rating : {{ review_form.rating }}</li>
+            <li id="headline" class="review">Headline : {{ review_form.headline}}</li>
+            <li id="body" class="review">Body : {{ review_form.body}}</li>
+        </ul>
+        {% csrf_token %}
+        <button type="submit" >Publier</button>
+    </form>
+{% endblock content %}

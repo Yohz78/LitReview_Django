@@ -40,4 +40,10 @@ urlpatterns = [
     path("signup", authentification.views.signup_page, name="signup"),
     path("reviews/create-ticket", reviews.views.ticket_upload, name="create-ticket"),
     path("reviews/<int:ticket_id>/edit", reviews.views.edit_ticket, name="edit-ticket"),
+    path(
+        "reviews/<int:ticket_id>/create-review",
+        reviews.views.review_upload,
+        name="create-review",
+    ),
+    path("reviews/follow-user", reviews.views.follow_user, name="follow-user"),
 ]
