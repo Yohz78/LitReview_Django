@@ -13,13 +13,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Accueil <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'home' %}"> Flux <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'follow-user' %}">Abonnements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user-content' %}">Mon espace</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'password_change' %}">Modifier son mot de passe</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'create-ticket' %}">Créer une demande de revue</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>

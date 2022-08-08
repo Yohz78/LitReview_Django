@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Modifier une critique</h2>
+    <form method="post">
+        <form class="form-horizontal form" name="EditForm"  method="post">
+            {% csrf_token %}
+                <br>
+            <div class="control-group">
+                <label class="control-label" for="headline">Titre</label>
+                <div class="controls">
+                    {{ edit_form.headline}}
+                </div>
+        </div>
+        <br>
+        <div class="control-group">
+            <label class="control-label" for="rating">Note</label>
+            <div class="controls">{{ edit_form.rating }}</div>
+        </div>
+        <br>
+            <div class="control-group">
+                <label class="control-label" for="body">Commentaire</label>
+                <div class="controls">
+                    {{ edit_form.body}}
+                </div>
+          </div>
+          <br>
+            {{edit_form.edit_review}}
+        <button type="submit" >Sauvegarder</button>
+            </form>
+        {% csrf_token %}
+    </form>
+    <hr>
+    <h3>Supprimer la critique ?</h3>
+    <form method="post">
+        {{ delete_form }}
+        {{delete_form.delete_review}}
+        {% csrf_token %}
+        <button type="submit" >Supprimer</button>
+    </form>
+{% endblock content %}

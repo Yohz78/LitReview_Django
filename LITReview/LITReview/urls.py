@@ -23,6 +23,7 @@ urlpatterns = [
     ),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("home/", reviews.views.home, name="home"),
+    path("reviews/user-content", reviews.views.user_content, name="user-content"),
     path(
         "change-password/",
         PasswordChangeView.as_view(
@@ -41,9 +42,24 @@ urlpatterns = [
     path("reviews/create-ticket", reviews.views.ticket_upload, name="create-ticket"),
     path("reviews/<int:ticket_id>/edit", reviews.views.edit_ticket, name="edit-ticket"),
     path(
+        "reviews/<int:id>/delete-follow",
+        reviews.views.delete_follow,
+        name="delete-follow",
+    ),
+    path(
         "reviews/<int:ticket_id>/create-review",
         reviews.views.review_upload,
         name="create-review",
     ),
     path("reviews/follow-user", reviews.views.follow_user, name="follow-user"),
+    path(
+        "reviews/create-reviewticket",
+        reviews.views.create_reviewticket,
+        name="create-reviewticket",
+    ),
+    path(
+        "reviews/<int:review_id>/edit-review",
+        reviews.views.edit_review,
+        name="edit-review",
+    ),
 ]

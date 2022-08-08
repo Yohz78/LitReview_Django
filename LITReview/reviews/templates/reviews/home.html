@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Voici votre flux</h1>
+    <h1>Bonjour {{request.user}}, voici votre flux</h1>
+    <div class="button-nav">
+        <button type="button" class="btn btn-light btn-lg"><a href="{% url 'create-ticket' %}">Demander une critique</a></button>
+        <button type="button" class="btn btn-light btn-lg" id="create-review"><a href="{% url 'create-reviewticket' %}">Créer une critique</a></button>
+    </div>
     {% for ticket in tickets %}
     <div class="item">
         <p>{{ ticket.user }} a demandé une critique</p>
         <h2>{{ ticket.title }}</h2>
         <p>{{ ticket.description }}</p>
-        <p><a href="{% url 'edit-ticket' ticket.id %}">Modifier le ticket</a> {{ ticket.time_created}}
+            <p><a href="{% url 'edit-ticket' ticket.id %}">Modifier le ticket</a> {{ ticket.time_created}}
         <a href="{% url 'create-review' ticket.id %}">Créer une critique</a></p>
     </div>
     {% endfor %}
@@ -21,6 +25,7 @@
             <p>{{ review.ticket.description }}</p>
             <p>{{review.ticket.time_created}}</p>
         </div>
+        <div><a href="{% url 'edit-review' review.id %}">Modifier la critique</a></div>
     </div>
     {% endfor %}
 {% endblock content %}

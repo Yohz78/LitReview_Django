@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Créer un ticket</h2>
-
+    <h2>Créer une critique</h2>
     <div  class="center-block" id="create-ticket" style="width: 40%;">
         <form class="form-horizontal form" name="TicketForm"  method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />
         {% endif %}
+        <h3>Ticket :</h3>
         <div class="control-group">
-            <br>
             <br>
             <br>
             <label class="control-label" for="title">Titre</label>
@@ -22,6 +21,31 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <input class="form-control" type="text" name="description" id="description" placeholder="Description">
+            </div>
+        </div>
+        <br>
+    </div>
+    <div  class="center-block" id="create-review" style="width: 40%;">
+        <br>
+        <h3>Critique :</h3>
+        <br>
+        <br>
+        <div class="control-group">
+            <label class="control-label" for="headline">Titre</label>
+            <div class="controls">
+                {{ review_form.headline}}
+            </div>
+    </div>
+    <br>
+    <div class="control-group">
+        <label class="control-label" for="rating">Note</label>
+        <div class="controls">{{ review_form.rating }}</div>
+    </div>
+    <br>
+        <div class="control-group">
+            <label class="control-label" for="body">Commentaire</label>
+            <div class="controls">
+                {{ review_form.body}}
             </div>
       </div>
       <br>
