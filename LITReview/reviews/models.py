@@ -4,6 +4,8 @@ from django.db import models
 
 
 class Ticket(models.Model):
+    """Ticket model. User to create and save tickets."""
+
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=2048, blank=True)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -12,6 +14,8 @@ class Ticket(models.Model):
 
 
 class Review(models.Model):
+    """Review model. User to create and save reviews."""
+
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(
         # validates that rating must be between 0 and 5
@@ -24,6 +28,8 @@ class Review(models.Model):
 
 
 class UserFollows(models.Model):
+    """Userfollows model. User to follow other users."""
+
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="following"
     )

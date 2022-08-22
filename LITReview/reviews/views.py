@@ -1,20 +1,32 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from operator import attrgetter
 from . import models, forms
 
 
 @login_required
 def home(request):
     """Render the flux to the user"""
-    tickets = models.Ticket.objects.all()
-    reviews = models.Review.objects.all()
+    tickets = models.Ticket.objects.all().order_by("time_created")
+    reviews = models.Review.objects.all().order_by("time_created")
+    items = []
+    for i, j in zip(tickets, reviews):
+        items.append(i)
+        items.append(j)
+    items.sort(key=attrgetter("time_created"), reverse=True)
     user = request.user
-    print(user)
+    tickets_reviewed = models.Ticket.objects.filter(review__isnull=False)
     return render(
         request,
         "reviews/home.html",
-        context={"tickets": tickets, "reviews": reviews, "user": user},
+        context={
+            "tickets": tickets,
+            "reviews": reviews,
+            "items": items,
+            "tickets_reviewed": tickets_reviewed,
+            "user": user,
+        },
     )
 
 
@@ -80,6 +92,7 @@ def review_upload(request, ticket_id):
 
 @login_required
 def edit_review(request, review_id):
+    """Allow the user to edit a review"""
     review = get_object_or_404(models.Review, id=review_id)
     edit_form = forms.EditReviewForm()
     delete_form = forms.DeleteReviewForm()
@@ -103,6 +116,7 @@ def edit_review(request, review_id):
 
 @login_required
 def create_reviewticket(request):
+    """Allow user to create a review and a ticket simultaneously"""
     review_form = forms.ReviewForm()
     ticket_form = forms.TicketForm()
     if request.method == "POST":
@@ -138,6 +152,7 @@ def create_reviewticket(request):
 
 @login_required
 def edit_ticket(request, ticket_id):
+    """Allow the edition of a ticket object"""
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
     edit_form = forms.EditTicketForm(instance=ticket)
     delete_form = forms.DeleteTicketForm()
@@ -161,6 +176,7 @@ def edit_ticket(request, ticket_id):
 
 @login_required
 def follow_user(request, id=None):
+    """Allow the following of another user via the use of a UserFollows model's instance"""
     User = get_user_model()
     users = User.objects.all()
     userfollowsform = forms.UserFollowsForm()
@@ -193,6 +209,7 @@ def follow_user(request, id=None):
 
 @login_required
 def delete_follow(request, id):
+    """Unfollow a given user via deletion of the corresponding UserFollows instance"""
     delete_follow = forms.DeleteFollowForm(request.POST)
     models.UserFollows.objects.filter(id=id).delete()
     context = {"delete_follow": delete_follow}
