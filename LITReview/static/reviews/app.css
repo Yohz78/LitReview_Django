@@ -13,18 +13,6 @@ html {
     gap: 10px;
 }
 
-.main > h1{
-    color:rgb(59, 112, 161);
-}
-
-.maclasse{
-    color:rgb(59, 112, 161);
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    gap: 0px;
-}
-
 .reviewform{
     color:rgb(59, 112, 161);
     display:flex;
@@ -34,7 +22,7 @@ html {
 }
 
 
-.item {
+.card {
     display:flex;
     flex-direction:column;
     align-items: center;

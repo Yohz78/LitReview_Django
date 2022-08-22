@@ -97,4 +97,6 @@ class EditReviewForm(forms.ModelForm):
 
 
 class UserFollowsForm(forms.Form):
+    """Allow following of another user"""
+
     User_to_follow = forms.CharField()

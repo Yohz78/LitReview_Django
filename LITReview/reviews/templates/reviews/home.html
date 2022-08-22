@@ -1,53 +1,80 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Bonjour {{request.user}}, voici votre flux</h1>
-    <div class="button-nav">
-        <button type="button" class="btn btn-light btn-lg"><a href="{% url 'create-ticket' %}">Demander une critique</a></button>
-        <button type="button" class="btn btn-light btn-lg" id="create-review"><a href="{% url 'create-reviewticket' %}">Créer une critique</a></button>
+    <div class="button-nav" style="margin-top: 40px;">
+        <button type="button" class="btn btn-light btn-lg"><a href="{% url 'create-ticket' %}">Demander une revue</a></button>
+        <button type="button" class="btn btn-light btn-lg" id="create-review"><a href="{% url 'create-reviewticket' %}">Créer une revue</a></button>
     </div>
 
 {% for item in items%}
-    {% if item in reviews %}
-        {% for review in reviews%}
-        <div class="card" style="width: 30rem;">
+    {% if item in reviews_todisplay %}
+        <div class="card" style="width: 30rem; margin-top:40px;">
             <div class="card-body">
-                <h5 class="card-title">{{ review.user }} a publié une critique</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{review.headline}} -- {{ review.rating }}*</h6>
-                <p class="card-text">{{review.body}}</p>
-                <p class="card-text">{{review.ticket.time_created}}</p>
-                {% if request.user == review.user %}
-                    <a href="{% url 'edit-review' review.id %}" class="card-link">Modifier la critique</a>
+                {% if request.user == item.user %}
+                    <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">Vous avez publié une revue</h5>
+                {% else %}
+                    <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">{{ item.user }} a publié une revue</h5>
                 {% endif %}
-            </div>
-            <div class="card" style="width: 30rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Ticket -- {{ review.ticket.user }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ review.ticket.title }}</h6>
-                    <p class="card-text">{{ review.ticket.description }}</p>
-                    <p class="card-text">{{review.ticket.time_created}}</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        {% for ticket in tickets %}
-            <div class="card" style="width: 30rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ ticket.user }} a demandé une critique</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ ticket.title }}</h6>
-                    <p class="card-text">{{ ticket.description }}</p>
-                    {% if request.user == ticket.user %}
-                        <p><a href="{% url 'edit-ticket' ticket.id %}" class="card-link">Modifier le ticket</a> {{ ticket.time_created}}
-                    {% endif %}
-                    {% if ticket not in tickets_reviewed %}
-                        <a href="{% url 'create-review' ticket.id %}" class="card-link">Créer une critique</a></p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Revue de : {{item.ticket.title}}</li>
+                    <li class="list-group-item">Intitulé : {{item.headline}}</li>
+                    {%if item.rating == 1 %}
+                        <li class="list-group-item"> <i class="fa-solid fa-star"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i></li>
+                    {% elif item.rating == 2 %}
+                        <li class="list-group-item"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i></i></li>
+                    {% elif item.rating == 3 %}
+                        <li class="list-group-item"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> <i class="far fa-star py-2 px-1 rate-popover"></i></li>
+                    {% elif item.rating == 4 %}
+                        <li class="list-group-item"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="far fa-star py-2 px-1 rate-popover"></i> </li>
                     {% else %}
-                        <p>Ce ticket a déjà reçu une réponse</p>
+                        <li class="list-group-item"> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></li>
                     {% endif %}
-                    <p class="card-text">{{review.ticket.time_created}}</p>
+                    <li class="list-group-item">Critique : {{item.body}}</li>
+                </ul>
+                {% if request.user == item.user %}
+                        <a href="{% url 'edit-review' item.id %}" class="card-link">Modifier votre revue</a>
+                {% endif %}
+                <p class="card-text" style="font-size : 75%;">{{item.time_created}}</p>
+            </div>
+                <div class="card" style="width: 25rem;">
+                    <div class="card-body">
+                        {% if request.user == item.ticket.user  %}
+                            <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">Vous avez demandé une revue</h5>
+                        {% else %}
+                            <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">{{ item.ticket.user  }} a demandé une revue</h5>
+                        {% endif %}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Objet à revoir : {{ item.ticket.title }}</li>
+                            <li class="list-group-item">{{ item.ticket.description }}</li>
+                        </ul>
+                        <p class="card-text" style="font-size : 75%;">{{item.ticket.time_created}}</p>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
+    {% else %}
+            <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                    {% if request.user == item.user %}
+                        <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">Vous avez demandé une revue</h5>
+                    {% else %}
+                        <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">{{ item.user }} a demandé une revue</h5>
+                    {% endif %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Objet à revoir : {{ item.title }}</li>
+                        <li class="list-group-item">{{item.description}}</li>
+                    </ul>
+                    {% if request.user == item.user %}
+                        <p><a href="{% url 'edit-ticket' item.id %}" class="card-link">Modifier votre ticket</a>
+                    {% endif %}
+                    {% if item not in tickets_reviewed %}
+                        <a href="{% url 'create-review' item.id %}" class="card-link">Créer une revue</a></p>
+                    {% else %}
+                        <p class="card-text" style="font-size: 80%;">Ce ticket a déjà reçu une réponse</p>
+                    {% endif %}
+                    <p class="card-text" style="font-size : 75%;">{{item.time_created}}</p>
+                </div>
+            </div>
     {% endif %}
+    <br>
 {% endfor %}
 {% endblock content %}

@@ -9,20 +9,31 @@
         {% csrf_token %}
         <button type="submit" name="follow" >S'abonner</button>
     </form>
+    {% if error%}
+        <p>Impossible de s'abonner à l'utilisateur demandé.</p>
+    {% endif%}
         <br>
         <br>
         <br>
         <h2>Utilisateurs suivis</h2>
-        {% for user in userfollowed%}
-        <p>{{user.followed_user}}
-            <a href="{% url 'delete-follow' user.id %}">Se désabonner</a>
-        </p>
-        {% endfor %}
+        {%if userfollowed%}
+            {% for user in userfollowed%}
+            <p>{{user.followed_user}}
+                <a href="{% url 'delete-follow' user.id %}">Se désabonner</a>
+            </p>
+            {% endfor %}
+        {%else%}
+            <p>Aucun utilisateur suivi.</p>
+        {% endif %}
         <br>
         <br>
         <br>
         <h2>Abonnés</h2>
-        {% for user in followers%}
-        <p>{{user.user}}</p>
-        {% endfor %}
+        {% if followers%}
+            {% for user in followers%}
+            <p>{{user.user}}</p>
+            {% endfor %}
+        {% else %}
+            <p> Aucun utilisateur ne vous suis.</p>
+        {% endif %}
 {% endblock content %}
