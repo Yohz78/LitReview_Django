@@ -25,9 +25,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'password_change' %}">Modifier son mot de passe</a>
             </li>
+            {% if user.is_authenticated%}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </nav>
