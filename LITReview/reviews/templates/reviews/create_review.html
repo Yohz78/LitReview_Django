@@ -2,11 +2,22 @@
 {% block content %}
         <h2>Créer une critique</h2>
         <p>Vous êtes en train de poster en réponse à :</p>
-        <div class="item">
-            <p>{{ ticket.user }} a demandé une critique</p>
-            <h2>{{ ticket.title }}</h2>
-            <p>{{ ticket.description }}</p>
+
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                {% if request.user == ticket.user  %}
+                    <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">Vous avez demandé une revue</h5>
+                {% else %}
+                    <h5 class="card-title" style="text-align: center; color:rgb(59, 112, 161);">{{ ticket.user  }} a demandé une revue</h5>
+                {% endif %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Objet à revoir : {{ ticket.title }}</li>
+                    <li class="list-group-item">{{ ticket.description }}</li>
+                </ul>
+                <p class="card-text" style="font-size : 75%;">{{ticket.time_created}}</p>
+            </div>
         </div>
+
     <div  class="center-block" id="create-ticket" style="width: 40%;">
         <form class="form-horizontal form" name="ReviewForm"  method="post">
         {% csrf_token %}
