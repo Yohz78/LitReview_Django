@@ -16,7 +16,7 @@ This locally-executable django application can be executed from [http://localhos
 For this method, it is necessary to have pipenv already installed on your python installation. If pipenv is not already installed on your computer, refer to [this page](docs/pipenv/installation-en.md).
 
 1. Clone this repository using `$ git clone https://github.com/Yohz78/Projet_9`
-2. Move to the project root folder with `$ cd Projet_9`
+2. Move to the project root folder with `$ cd Projet_9\LITReview`
 3. Install project dependencies with `pipenv install`
 4. Run the server with `python manage.py runserver`
 
@@ -24,6 +24,19 @@ When the server is running after step 4 of the procedure, you can access the app
 
 Steps 1-4 are only required for initial installation. For subsequent launches
 of the application, you only have to execute step 4 from the root folder of the project.
+
+### Option 2: Installation and execution without pipenv (using venv and pip)
+
+1. Clone this repository using `$ git clone https://github.com/Yohz78/Projet_9`
+2. Move to the LITReview root folder with `$ cd Projet_9\LITReview`
+3. Create a virtual environment for the project with `$ py -m venv env` on windows or `$ python3 -m venv env` on macos or linux.
+4. Activate the virtual environment with `$ env\Scripts\activate` on windows or `$ source env/bin/activate` on macos or linux.
+5. Install project dependencies with `$ pip install -r requirements.txt`
+6. Run the server with `$ python manage.py runserver`
+
+When the server is running after step of the procedure, the django app can be accessed at [http://localhost:8000/home](http://localhost:8000/home)
+
+Steps 1-5 are only required for initial installation. For subsequent launches of the Django app, you only have to execute step 6 from the root folder of the project.
 
 ## Usage
 
@@ -59,14 +72,28 @@ Cette application django exécutable localement peut être exécutée à partir 
 Pour cette méthode, il est nécessaire que pipenv soit déjà installé sur votre installation python. Si pipenv n'est pas déjà installé sur votre ordinateur, consultez [cette page](docs/pipenv/installation-en.md).
 
 1. Cloner ce dépôt en utilisant `$ git clone https://github.com/Yohz78/Projet_9`
-2. Accédez au dossier racine du projet avec `$ cd Projet_9`
+2. Accédez au dossier racine du projet avec `$ cd Projet_9\LITReview`
 3. Installez les dépendances du projet avec `pipenv install`
 4. Exécutez le serveur avec `python manage.py runserver`
 
 Lorsque le serveur est en cours d'exécution après l'étape 4 de la procédure, vous pouvez accéder à l'application à l'adresse [http://localhost:8000/home](http://localhost:8000/home)
 
-Les étapes 1 à 4 ne sont requises que pour l'installation initiale. Pour les lancements ultérieurs
+Les étapes 1 à 3 ne sont requises que pour l'installation initiale. Pour les lancements ultérieurs
 de l'application, vous n'avez qu'à exécuter l'étape 4 depuis le dossier racine du projet.
+
+### Option 2: Installation and execution without pipenv (using venv and pip)
+
+1. Clonez le repertoire avec la commande : `$ git clone https://github.com/Yohz78/Projet_9`
+2. Accédez au dossier racine du projet avec : `$ cd Projet_9\LITReview`
+3. Créez l'environnement virtuel du projet avec `$ py -m venv env` sur windows ou `$ python3 -m venv env` sur macos ou linux.
+4. Activez l'environnement avec `$ env\Scripts\activate` sur windows ou `$ source env/bin/activate` sur macos ou linux.
+5. Installez les librairies nécessaires au projet avec `$ pip install -r requirements.txt`
+6. Exécutez le serveur avec `$ python manage.py runserver`
+
+Lorsque le serveur est en cours d'exécution après l'étape 4 de la procédure, vous pouvez accéder à l'application à l'adresse [http://localhost:8000/home](http://localhost:8000/home)
+
+Les étapes 1 à 5 ne sont requises que pour l'installation initiale. Pour les lancements ultérieurs
+de l'application, vous n'avez qu'à exécuter l'étape 6 depuis le dossier racine du projet.
 
 ## Usage
 
